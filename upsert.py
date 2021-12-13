@@ -43,5 +43,3 @@ for i in sheet_keys:
                     file.write(values[j][k]+",")
 
     print("{sheet_key_counts}/{sheet_key_length}" .format(sheet_key_counts=sheet_key_counts, sheet_key_length=len(sheet_keys)), file_name)
-
-            
