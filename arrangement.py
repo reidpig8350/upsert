@@ -1,6 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
+import os
 import time
 import re
 
@@ -8,54 +8,31 @@ sheet_keys = ["https://docs.google.com/spreadsheets/d/1-1bdmXZXYwOTa4TMgM6Uqnad0
 scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 credentials = ServiceAccountCredentials.from_json_keyfile_name("TPESE_KEY.json", scopes)
 
-others_route = "./others.csv"
-with open(others_route, "w", encoding="utf-8") as file:
-    file.write("system_id,sent_date__c,content_name__c,journey_content__r_a_b_test__c,type__c,card_no__c,card_type__c,status__c,arrival_station__c,departure_station__c,pnr_number,utm_content__c,birthday_event_date\n")
+csv_files = os.listdir("./history")
+
+for i in csv_files:
+    for j in range(10, 13):
+        file_day = re.match("「JourneyMessageHistory_Others」的副本 - (.*)月(.*)日，上午.*", i)[2]
+        file_month = re.match("「JourneyMessageHistory_Others」的副本 - (.*)月(.*)日，上午.*", i)[1]
+        print(file_month, file_day)
+
+# for i in range()
+
+# with open(others_route .format(file_name=file_name), "r", encoding="utf-8") as file:
+
+#     for j in range(0, len(values)):
+#         for k in range(0, len(values[j])):
+#             if k==len(values[j])-1:
+#                 file.write(values[j][k]+"\n")
+#             else:
+#                 file.write(values[j][k]+",")
 
 
-sheet_key_counts = 0
-sheet_row_counts = 1
-for i in sheet_keys:
+# time.sleep(3)
+# client = gspread.authorize(credentials)
+# the_key = (re.match('.*d\/(.*)\/edit.*', i)[1])
+# sheets = client.open_by_key(the_key).sheet1
+# file_name = client.open_by_key(the_key).title
 
-    sheet_key_counts += 1
-
-    time.sleep(3)
-    client = gspread.authorize(credentials)
-    the_key = (re.match('.*d\/(.*)\/edit.*', i)[1])
-    sheets = client.open_by_key(the_key).sheet1
-    file_name = client.open_by_key(the_key).title
-
-    values = sheets.get("A:M")
-    rows = sheets.get("A:A")
-
-    with open("./history/{file_name}.csv" .format(file_name=file_name), "w", encoding="utf-8") as file:
-
-        for j in range(0, len(values)):
-            for k in range(0, len(values[j])):
-                if k==len(values[j])-1:
-                    file.write(values[j][k]+"\n")
-                else:
-                    file.write(values[j][k]+",")
-    
-    with open(others_route, "a", encoding="utf-8") as file:
-        for j in range(1, len(values)):
-            for k in range(0, len(values[j])):
-                if values[j][k]=="1":
-                    file.write("\n")
-                    break
-                elif values[j][k]=="0":
-                    file.write("\n")
-                    break
-                elif k==len(values[j])-1:
-                    file.write(values[j][k]+"\n")
-                else:
-                    file.write(values[j][k]+",")
-
-    row_start = sheet_row_counts + 1
-    sheet_row_counts = sheet_row_counts + len(rows) - 1
-
-    open("./which_row.txt", "w").close()
-    log_message = "{sheet_key_counts}/{sheet_key_length} {file_name} {sheet_title} {row_start}-{row_end}" .format(sheet_key_counts=sheet_key_counts, sheet_key_length=len(sheet_keys), file_name=file_name, sheet_title=sheets.title, row_start=row_start, row_end=sheet_row_counts)
-    with open("./which_row.txt", "a", encoding="utf-8") as which_row:
-        which_row.write(log_message + "\n")
-        print(log_message)
+# values = sheets.get("A:M")
+# rows = sheets.get("A:A")
