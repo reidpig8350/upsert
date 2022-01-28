@@ -4,7 +4,10 @@ import time
 import re
 import pandas as pd
 
-sheet_keys = ["https://docs.google.com/spreadsheets/d/1A-GfoPID4l-EssJMhgoWMKXFhRMlcFfD2srt8q4xBzc/edit?usp=sharing", "https://docs.google.com/spreadsheets/d/1KD_FYide33xOyU5z5Ew26oulf1nBxJl9ZlgbUUq9dqY/edit?usp=sharing", "https://docs.google.com/spreadsheets/d/1QHvC9-CNZap1jCTxlIyNFrYVdtwbcehaokEMw2jb1Lk/edit?usp=sharing", "https://docs.google.com/spreadsheets/d/1UR93b25LOuGxmOfMQp8kkwOs8UCrCJziZLoNzI7G3vA/edit?usp=sharing", "https://docs.google.com/spreadsheets/d/1i4YiH1xw-mwoAt9Vyj9VwAsNAkafW_eww1hE9eb4Q7Q/edit?usp=sharing"]
+sheet_keys = [
+    'https://docs.google.com/spreadsheets/d/1NkqiisJONM45d5qTpBrS6xK4-1GZdqPHJwQ2NHiVhns/edit?usp=sharing', 'https://docs.google.com/spreadsheets/d/1wDqetuhC3vjd5u_b3hl_sBKI3ZYP6lgcjRUQTgnzr_A/edit?usp=sharing'
+    ]
+
 scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 credentials = ServiceAccountCredentials.from_json_keyfile_name("TPESE_KEY.json", scopes)
 
